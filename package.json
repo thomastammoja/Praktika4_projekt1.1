@@ -1,0 +1,15 @@
+{
+  "name": "praktika4_thomastammoja",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.0",
+    "pg-promise": "^10.11.1"
+  }
+}
