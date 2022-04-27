@@ -7,6 +7,7 @@ var GetRoomSensors = require('./components/GetRoomSensors');
 var GetAllControllers = require('./components/GetAllControllers');
 var GetControllerSensor = require('./components/GetControllerSensors');
 var GetRoomSensorsDataToday = require('./components/GetRoomSensorsDataToday');
+var GetRoomSensorsData = require('./components/GetRoomSensorsData');
 
 // Vahevara
 var cors = require("cors");
@@ -31,5 +32,10 @@ GetControllerSensor(app);
 // Kasutasin staatilist kuupäeva 2022-04-14, sest sellest kuupäevast on viimased andmed pärit
 // Dünaamilise kuupäeva semel kasutaksin sellist WHERE konditsiooni: DATE(date_time) = CURRENT_DATE
 GetRoomSensorsDataToday(app);
+
+
+// Ruumi sensorite andmed viimaste näitudega
+GetRoomSensorsData(app);
+
 
 app.listen(PORT);

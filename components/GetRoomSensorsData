@@ -1,0 +1,28 @@
+const db = require('../config/index');
+
+module.exports = function (app) {
+    app.get("/api/room/:number/sensors/data", function (req, res) {
+        res.set('Access-Control-Allow-Origin', '*')
+        db.any(
+            "SELECT ds.date_time AS LastTimestamp, cs.room AS Room, s.sensorname AS Sensor, ds.data AS MeasuredValue, data.dimension AS Unit " +
+            "FROM sensor AS s " +
+            "INNER JOIN controller_sensor AS cs ON s.id = cs.id_sensor " +
+            "LEFT JOIN (SELECT id_controllersensor, tv.dimension, MAX(datasensor.id) AS LastReadingId " +
+            "FROM datasensor INNER JOIN typevalue AS tv ON datasensor.id_typevalue = tv.id " +
+            "GROUP BY 1, 2) AS data ON data.id_controllersensor = cs.id " +
+            "LEFT JOIN datasensor AS ds ON ds.id = data.LastReadingId " +
+            "WHERE s.sensortype = 'sensor' AND cs.room = " + req.params.number + ":: varchar " +
+            "ORDER BY 3"
+        )
+            .then(function (data) {
+                res.json({
+                    status: "success",
+                    data: data,
+                });
+            })
+            .catch(function (err) {
+                return next(err);
+            });
+    });
+};
+
