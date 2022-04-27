@@ -8,6 +8,10 @@ var GetAllControllers = require('./components/GetAllControllers');
 var GetControllerSensor = require('./components/GetControllerSensors');
 var GetRoomSensorsDataToday = require('./components/GetRoomSensorsDataToday');
 
+// Vahevara
+var cors = require("cors");
+app.use(cors());
+
 // Ülesanne 1
 // Kõik ruumid
 GetAllRooms(app);
