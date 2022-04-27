@@ -2,6 +2,7 @@ const db = require('../config/index');
 
 module.exports = function (app) {
     app.get("/api/room/44/sensors/today", function (req, res) {
+        res.set('Access-Control-Allow-Origin', '*')
         db.any(
             "SELECT date_time, data AS SensorValue, typevalue.dimension AS unit " +
             "FROM datasensor " +
