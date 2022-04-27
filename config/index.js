@@ -1,9 +1,16 @@
-var configValues = require('./config');
+const config = require('./config');
+const pgp = require("pg-promise")();
 
-module.exports = {
- getDbConnectionString:function() {
- // 'postgres://{db_username}:{db_password}@{host}:{port}/{db_name}'
- return 'postgres://'+configValues.username+':'+configValues.password
- +'@'+configValues.host+':'+configValues.port+'/'+configValues.dbname;
- }
-}
+// Create connection string
+var connectionString = 'postgres://' + 
+    config.username + ':' + 
+    config.password + '@' + 
+    config.host + ':' + 
+    config.port + '/' + 
+    config.dbname;
+
+// Connect to db
+var db = pgp(connectionString);
+
+// Return db connection
+module.exports = db;
